@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_application_1/core/error/exception.dart';
 import 'package:flutter_application_1/features/offers/data/models/offer_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,6 +26,8 @@ class OfferRemoteDataSourceImpl implements OfferRemoteDataSource {
             (e) => OfferModel.fromJson(e),
           )
           .toList();
+    } else {
+      throw ServerException();
     }
   }
 }

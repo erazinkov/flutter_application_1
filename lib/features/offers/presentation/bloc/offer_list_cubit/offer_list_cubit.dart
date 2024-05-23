@@ -10,7 +10,9 @@ const CACHED_FAILURE_MESSAGE = 'Cache Failure';
 class OfferListCubit extends Cubit<OfferListState> {
   final GetAllOffers getAllOffers;
 
-  OfferListCubit({required this.getAllOffers}) : super(OfferListEmpty());
+  OfferListCubit({required this.getAllOffers}) : super(OfferListEmpty()) {
+    loadOffer();
+  }
 
   void loadOffer() async {
     if (state is OfferListLoading) {

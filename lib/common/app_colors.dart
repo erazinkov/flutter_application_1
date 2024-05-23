@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static const Color white = Color.fromRGBO(255, 255, 255, 1);
+  static const Color grey = Color.fromRGBO(159, 159, 159, 1);
+  static const Color black = Color.fromRGBO(12, 12, 12, 1);
+
   static const Color navSelected = Color.fromRGBO(34, 97, 188, 1);
   static const Color navUnselected = Color.fromRGBO(159, 159, 159, 1);
 

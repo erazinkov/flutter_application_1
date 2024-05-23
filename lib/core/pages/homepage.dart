@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/pages/widgets/bottom_navigation.dart';
-import 'package:flutter_application_1/features/air_tickets/presentation/pages/air_tickets_page.dart';
+import 'package:flutter_application_1/core/pages/air_tickets_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

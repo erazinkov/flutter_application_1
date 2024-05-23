@@ -38,30 +38,35 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
-      showUnselectedLabels: true,
-      selectedItemColor: AppColors.navSelected,
-      unselectedItemColor: AppColors.navUnselected,
-      selectedFontSize: 10,
-      unselectedFontSize: 10,
-      currentIndex: index,
-      onTap: (idx) => onIndexTap(idx),
-      items: [
-        ...botNavBarItemInfoList.mapIndexed(
-          (idx, element) => BottomNavigationBarItem(
-            label: element.label,
-            icon: SvgPicture.asset(
-              element.assetName,
-              colorFilter: ColorFilter.mode(
-                  idx == index
-                      ? AppColors.navSelected
-                      : AppColors.navUnselected,
-                  BlendMode.srcIn),
+    return Theme(
+      data: Theme.of(context).copyWith(
+        canvasColor: AppColors.black,
+      ),
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        selectedItemColor: AppColors.navSelected,
+        unselectedItemColor: AppColors.navUnselected,
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
+        currentIndex: index,
+        onTap: (idx) => onIndexTap(idx),
+        items: [
+          ...botNavBarItemInfoList.mapIndexed(
+            (idx, element) => BottomNavigationBarItem(
+              label: element.label,
+              icon: SvgPicture.asset(
+                element.assetName,
+                colorFilter: ColorFilter.mode(
+                    idx == index
+                        ? AppColors.navSelected
+                        : AppColors.navUnselected,
+                    BlendMode.srcIn),
+              ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

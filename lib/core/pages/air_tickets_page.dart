@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
+import 'package:flutter_application_1/features/offers/presentation/offers_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AirTicketsPage extends StatelessWidget {
   const AirTicketsPage({super.key});
@@ -22,6 +25,18 @@ class AirTicketsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
+          const Text(
+            'Looking for chip \n air tickets',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.white,
+              fontWeight: FontWeight.w600,
+              fontSize: 22,
+            ),
+          ),
+          const SizedBox(
+            height: 36,
+          ),
           Container(
             decoration: BoxDecoration(
               color: AppColors.searchGreyDark,
@@ -39,24 +54,59 @@ class AirTicketsPage extends StatelessWidget {
                       offset: Offset(0.0, 4.0))
                 ],
               ),
-              padding: const EdgeInsets.all(16),
-              child: Column(
+              padding: const EdgeInsets.only(
+                  top: 16, right: 16, bottom: 16, left: 8),
+              child: Row(
                 children: [
-                  _MyTextField(),
-                  const Divider(
-                    height: 16,
-                    thickness: 1,
-                    color: AppColors.searchDivider,
+                  SvgPicture.asset(
+                    'assets/icons/search.svg',
+                    colorFilter: const ColorFilter.mode(
+                        AppColors.black, BlendMode.srcIn),
                   ),
-                  GestureDetector(
-                    onTap: () => _showModalBottomSheet(context),
-                    child: const _MyTextField(
-                      enabled: false,
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        _MyTextField(),
+                        const Divider(
+                          height: 16,
+                          thickness: 1,
+                          color: AppColors.searchDivider,
+                        ),
+                        GestureDetector(
+                          onTap: () => _showModalBottomSheet(context),
+                          child: const _MyTextField(
+                            enabled: false,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+          const Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Music',
+              style: TextStyle(
+                color: AppColors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 22,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 25,
+          ),
+          const Flexible(
+            child: OffersList(),
           ),
         ],
       ),
