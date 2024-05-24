@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
+import 'package:flutter_application_1/core/pages/widgets/my_text_field.dart';
+import 'package:flutter_application_1/core/pages/widgets/search_modal.dart';
 import 'package:flutter_application_1/features/offers/presentation/offers_list.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AirTicketsPage extends StatelessWidget {
@@ -15,7 +16,7 @@ class AirTicketsPage extends StatelessWidget {
       clipBehavior: Clip.hardEdge,
       isScrollControlled: true,
       context: context,
-      builder: (context) => _SearchModal(),
+      builder: (context) => const SearchModal(),
     );
   }
 
@@ -69,7 +70,7 @@ class AirTicketsPage extends StatelessWidget {
                   Flexible(
                     child: Column(
                       children: [
-                        _MyTextField(),
+                        const MyTextField(),
                         const Divider(
                           height: 16,
                           thickness: 1,
@@ -77,7 +78,7 @@ class AirTicketsPage extends StatelessWidget {
                         ),
                         GestureDetector(
                           onTap: () => _showModalBottomSheet(context),
-                          child: const _MyTextField(
+                          child: const MyTextField(
                             enabled: false,
                           ),
                         ),
@@ -109,71 +110,6 @@ class AirTicketsPage extends StatelessWidget {
             child: OffersList(),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _SearchModal extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.searchGreyDark,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                _MyTextField(),
-                const Divider(
-                  height: 16,
-                  thickness: 1,
-                  color: AppColors.searchDivider,
-                ),
-                const _MyTextField(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _MyTextField extends StatelessWidget {
-  const _MyTextField({this.enabled = true, super.key});
-
-  final bool? enabled;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      enabled: enabled,
-      cursorColor: AppColors.searchCursor,
-      obscureText: false,
-      style: const TextStyle(
-        color: AppColors.searchText,
-        fontSize: 16,
-        fontWeight: FontWeight.w600,
-      ),
-      keyboardType: TextInputType.text,
-      onChanged: (value) {},
-      autocorrect: false,
-      decoration: const InputDecoration(
-        isCollapsed: true,
-        border: InputBorder.none,
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        labelText: '123',
-        labelStyle: TextStyle(
-          color: AppColors.searchLabel,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
       ),
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter_application_1/features/offers/data/models/price_model.da
 import 'package:flutter_application_1/features/offers/domain/entities/offer_entity.dart';
 
 class OfferModel extends OfferEntity {
-  OfferModel({
+  const OfferModel({
     required id,
     required title,
     required town,
