@@ -43,8 +43,12 @@ class OffersListItem extends StatelessWidget {
           children: [
             SvgPicture.asset(
               'assets/icons/price.svg',
+              width: 24,
               colorFilter:
                   const ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
+            ),
+            const SizedBox(
+              width: 4,
             ),
             Text(
               'from ${offer.price.value.toString()} rub',
