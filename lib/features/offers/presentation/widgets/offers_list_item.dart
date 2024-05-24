@@ -47,9 +47,6 @@ class OffersListItem extends StatelessWidget {
               colorFilter:
                   const ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
             ),
-            const SizedBox(
-              width: 4,
-            ),
             Text(
               'from ${offer.price.value.toString()} rub',
               style: const TextStyle(
@@ -61,11 +58,6 @@ class OffersListItem extends StatelessWidget {
           ],
         ),
       ],
-
-      // width: 123,
-      // height: 132,
-
-      // child: Image.asset('assets/images/${offer.id}.png'),
     );
   }
 }
