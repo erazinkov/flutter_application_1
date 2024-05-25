@@ -5,6 +5,12 @@ import 'package:flutter_application_1/features/offers/data/repositories/offer_re
 import 'package:flutter_application_1/features/offers/domain/repositories/offer_repository.dart';
 import 'package:flutter_application_1/features/offers/domain/usecases/get_all_offers.dart';
 import 'package:flutter_application_1/features/offers/presentation/bloc/offer_list_cubit/offer_list_cubit.dart';
+import 'package:flutter_application_1/features/tickets_offers/data/datasources/tickets_offer_local_data_source.dart';
+import 'package:flutter_application_1/features/tickets_offers/data/datasources/tickets_offer_remote_data_source.dart';
+import 'package:flutter_application_1/features/tickets_offers/data/repositories/tickets_offer_repository_impl.dart';
+import 'package:flutter_application_1/features/tickets_offers/domain/repositories/tickets_offer_repository.dart';
+import 'package:flutter_application_1/features/tickets_offers/domain/usecases/get_all_tickets_offers.dart';
+import 'package:flutter_application_1/features/tickets_offers/presentation/bloc/tickets_offer_list_cubit/tickets_offer_list_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:http/http.dart' as http;
@@ -15,13 +21,25 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   sl.registerFactory(() => OfferListCubit(getAllOffers: sl()));
+  sl.registerFactory(() => TicketsOfferListCubit(getAllTicketsOffers: sl()));
 
   sl.registerLazySingleton(
     () => GetAllOffers(sl()),
   );
+  sl.registerLazySingleton(
+    () => GetAllTicketsOffers(sl()),
+  );
 
   sl.registerLazySingleton<OfferRepository>(
     () => OfferRepositoryImpl(
+      localDataSource: sl(),
+      remoteDataSource: sl(),
+      networkInfo: sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<TicketsOfferRepository>(
+    () => TicketsOfferRepositoryImpl(
       localDataSource: sl(),
       remoteDataSource: sl(),
       networkInfo: sl(),
@@ -33,9 +51,19 @@ Future<void> init() async {
       client: http.Client(),
     ),
   );
+  sl.registerLazySingleton<TicketsOfferRemoteDataSource>(
+    () => TicketsOfferRemoteDataSourceImpl(
+      client: http.Client(),
+    ),
+  );
 
   sl.registerLazySingleton<OfferLocalDataSource>(
     () => OfferLocalDataSourceImpl(
+      sharedPreferences: sl(),
+    ),
+  );
+  sl.registerLazySingleton<TicketsOfferLocalDataSource>(
+    () => TicketsOfferLocalDataSourceImpl(
       sharedPreferences: sl(),
     ),
   );

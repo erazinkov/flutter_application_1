@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
-import 'package:flutter_application_1/core/pages/widgets/my_text_field.dart';
-import 'package:flutter_application_1/core/pages/widgets/search_modal.dart';
+import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
+import 'package:flutter_application_1/pages/widgets/search_modal.dart';
 import 'package:flutter_application_1/features/offers/presentation/offers_list.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

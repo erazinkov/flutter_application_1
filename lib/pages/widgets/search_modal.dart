@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
-import 'package:flutter_application_1/core/pages/widgets/my_text_field.dart';
-import 'package:flutter_application_1/core/pages/widgets/prompt_row.dart';
-import 'package:flutter_application_1/core/pages/widgets/recommendations_row.dart';
+import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
+import 'package:flutter_application_1/pages/widgets/prompt_row.dart';
+import 'package:flutter_application_1/pages/widgets/recommendations_row.dart';
 
 class SearchModal extends StatelessWidget {
   const SearchModal({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/app_colors.dart';
-import 'package:flutter_application_1/core/pages/widgets/prompt_row_item.dart';
+import 'package:flutter_application_1/pages/widgets/prompt_row_item.dart';
 
 class PromptRow extends StatelessWidget {
   const PromptRow({super.key});

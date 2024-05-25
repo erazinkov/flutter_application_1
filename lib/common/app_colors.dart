@@ -13,6 +13,8 @@ class AppColors {
   static const Color navSelected = Color.fromRGBO(34, 97, 188, 1);
   static const Color navUnselected = Color.fromRGBO(159, 159, 159, 1);
 
+  static const ticketsOffers = [red, blue, white];
+
   static const Color searchGreyDark = Color.fromRGBO(47, 48, 53, 1);
   static const Color searchGrey = Color.fromRGBO(62, 63, 67, 1);
   static const Color searchShadow = Color.fromRGBO(0, 0, 0, 0.25);
