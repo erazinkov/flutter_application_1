@@ -19,26 +19,28 @@ class CountrySetPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             padding: const EdgeInsets.all(16),
-            child: const Column(
+            child: Column(
               children: [
-                MyTextField(
-                  assetName: 'assets/icons/plane.svg',
-                ),
-                Divider(
-                  height: 16,
-                  thickness: 1,
-                  color: AppColors.searchDivider,
-                ),
-                MyTextField(
-                  assetName: 'assets/icons/search.svg',
-                ),
+                // MyTextField(
+                //   assetName: 'assets/icons/plane.svg',
+                //   onChanged: () {},
+                // ),
+                // Divider(
+                //   height: 16,
+                //   thickness: 1,
+                //   color: AppColors.searchDivider,
+                // ),
+                // MyTextField(
+                //   assetName: 'assets/icons/search.svg',
+                //   onChanged: () {},
+                // ),
               ],
             ),
           ),
           const SizedBox(
             height: 12,
           ),
-          Align(
+          const Align(
             alignment: Alignment.centerLeft,
             child: InfoRow(),
           ),

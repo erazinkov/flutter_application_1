@@ -5,6 +5,7 @@ import 'package:flutter_application_1/features/offers/data/repositories/offer_re
 import 'package:flutter_application_1/features/offers/domain/repositories/offer_repository.dart';
 import 'package:flutter_application_1/features/offers/domain/usecases/get_all_offers.dart';
 import 'package:flutter_application_1/features/offers/presentation/bloc/offer_list_cubit/offer_list_cubit.dart';
+import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_cubit.dart';
 import 'package:flutter_application_1/features/tickets/data/datasources/tickets_local_data_source.dart';
 import 'package:flutter_application_1/features/tickets/data/datasources/tickets_remote_data_source.dart';
 import 'package:flutter_application_1/features/tickets/data/repositories/tickets_repository_impl.dart';
@@ -29,6 +30,7 @@ Future<void> init() async {
   sl.registerFactory(() => OfferListCubit(getAllOffers: sl()));
   sl.registerFactory(() => TicketsOfferListCubit(getAllTicketsOffers: sl()));
   sl.registerFactory(() => TicketsListCubit(getAllTickets: sl()));
+  sl.registerFactory(() => SearchCubit());
 
   sl.registerLazySingleton(
     () => GetAllOffers(sl()),

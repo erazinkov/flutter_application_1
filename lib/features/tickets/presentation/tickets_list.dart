@@ -1,6 +1,4 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/features/tickets/domain/entities/ticket_entity.dart';
 import 'package:flutter_application_1/features/tickets/presentation/bloc/tickets_list_cubit/tickets_list_cubit.dart';
 import 'package:flutter_application_1/features/tickets/presentation/bloc/tickets_list_cubit/tickets_list_state.dart';
@@ -28,7 +26,7 @@ class TicketsList extends StatelessWidget {
           ),
           itemCount: tickets.length,
           separatorBuilder: (context, index) => const SizedBox(
-            height: 8,
+            height: 4,
           ),
         );
       },

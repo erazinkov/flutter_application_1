@@ -16,146 +16,166 @@ class TicketsListItem extends StatelessWidget {
 
     final hours = arr.difference(dep).inHours;
 
-    return Container(
-      padding: const EdgeInsets.all(
-        16,
-      ),
-      decoration: const BoxDecoration(
-        color: AppColors.greyDarkerDarker,
-        borderRadius: BorderRadius.all(
-          Radius.circular(8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Badge(
+        isLabelVisible: ticket.badge != null ? true : false,
+        largeSize: 20,
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        backgroundColor: AppColors.blue,
+        alignment: Alignment.topLeft,
+        offset: const Offset(0, -10),
+        label: Text(
+          '${ticket.badge}',
+          style: const TextStyle(
+            color: AppColors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            fontStyle: FontStyle.italic,
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            '${ticket.price.value} ₽',
-            style: const TextStyle(
-              color: AppColors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.w600,
+        child: Container(
+          padding: const EdgeInsets.all(
+            16,
+          ),
+          decoration: const BoxDecoration(
+            color: AppColors.greyDarkerDarker,
+            borderRadius: BorderRadius.all(
+              Radius.circular(8),
             ),
           ),
-          const SizedBox(
-            height: 12,
-          ),
-          Row(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 24,
-                height: 24,
-                decoration: BoxDecoration(
-                  color: AppColors.red,
-                  borderRadius: BorderRadius.circular(50),
+              Text(
+                '${ticket.price.value} ₽',
+                style: const TextStyle(
+                  color: AppColors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(
-                width: 8,
+                height: 12,
               ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 24,
+                    height: 24,
+                    decoration: BoxDecoration(
+                      color: AppColors.red,
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              DateFormat('hh:mm').format(dep),
-                              style: const TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            Text(
-                              ticket.departure.airport,
-                              style: const TextStyle(
-                                color: AppColors.grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const Text(
-                          ' - ',
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            Text(
-                              DateFormat('hh:mm').format(arr),
-                              style: const TextStyle(
-                                color: AppColors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                            Text(
-                              ticket.arrival.airport,
-                              style: const TextStyle(
-                                color: AppColors.grey,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                '$hoursч в пути',
-                                style: const TextStyle(
-                                  color: AppColors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
+                            Column(
+                              children: [
+                                Text(
+                                  DateFormat('hh:mm').format(dep),
+                                  style: const TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                 ),
+                                Text(
+                                  ticket.departure.airport,
+                                  style: const TextStyle(
+                                    color: AppColors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Text(
+                              ' — ',
+                              style: TextStyle(
+                                color: AppColors.grey,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.italic,
                               ),
-                              ticket.hasTransfer
-                                  ? const SizedBox.shrink()
-                                  : const Text(
-                                      '/Без пересадок',
-                                      style: TextStyle(
-                                        color: AppColors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  DateFormat('hh:mm').format(arr),
+                                  style: const TextStyle(
+                                    color: AppColors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                                Text(
+                                  ticket.arrival.airport,
+                                  style: const TextStyle(
+                                    color: AppColors.grey,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    '$hoursч в пути',
+                                    style: const TextStyle(
+                                      color: AppColors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                            ],
-                          ),
+                                  ),
+                                  ticket.hasTransfer
+                                      ? const SizedBox.shrink()
+                                      : const Text(
+                                          '/Без пересадок',
+                                          style: TextStyle(
+                                            color: AppColors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
+                        // Text(
+                        //   ticket.timeRange.join(' '),
+                        //   overflow: TextOverflow.ellipsis,
+                        //   style: const TextStyle(
+                        //     color: AppColors.white,
+                        //     fontSize: 14,
+                        //     fontWeight: FontWeight.w400,
+                        //   ),
+                        // ),
                       ],
                     ),
-                    // Text(
-                    //   ticket.timeRange.join(' '),
-                    //   overflow: TextOverflow.ellipsis,
-                    //   style: const TextStyle(
-                    //     color: AppColors.white,
-                    //     fontSize: 14,
-                    //     fontWeight: FontWeight.w400,
-                    //   ),
-                    // ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_cubit.dart';
+import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_state.dart';
 import 'package:flutter_application_1/pages/all_tickets_page.dart';
 import 'package:flutter_application_1/pages/country_set_page.dart';
 import 'package:flutter_application_1/pages/widgets/bottom_navigation.dart';
 import 'package:flutter_application_1/pages/air_tickets_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,19 +26,22 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(),
       extendBody: true,
-      body: IndexedStack(
-        index: _index,
-        children: [
-          AllTicketsPage(),
-          // CountrySetPage(),
-          // AirTicketsPage(),
-          AirTicketsPage(),
-          AirTicketsPage(),
-          AirTicketsPage(),
-          AirTicketsPage(),
-        ],
+      body: BlocBuilder<SearchCubit, SearchState>(
+        builder: (context, state) => IndexedStack(
+          index: _index,
+          children: [
+            // AllTicketsPage(),
+            // CountrySetPage(),
+            AirTicketsPage(),
+            AirTicketsPage(),
+            AirTicketsPage(),
+            AirTicketsPage(),
+            AirTicketsPage(),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigation(
         index: _index,
