@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/all_tickets_page.dart';
 import 'package:flutter_application_1/pages/country_set_page.dart';
 import 'package:flutter_application_1/pages/widgets/bottom_navigation.dart';
 import 'package:flutter_application_1/pages/air_tickets_page.dart';
@@ -27,7 +28,8 @@ class _HomePageState extends State<HomePage> {
       body: IndexedStack(
         index: _index,
         children: [
-          CountrySetPage(),
+          AllTicketsPage(),
+          // CountrySetPage(),
           // AirTicketsPage(),
           AirTicketsPage(),
           AirTicketsPage(),
