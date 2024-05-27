@@ -4,7 +4,7 @@ import 'package:flutter_application_1/features/search/presentation/bloc/search_c
 import 'package:flutter_application_1/pages/all_tickets_page.dart';
 import 'package:flutter_application_1/pages/country_set_page.dart';
 import 'package:flutter_application_1/pages/widgets/bottom_navigation.dart';
-import 'package:flutter_application_1/pages/air_tickets_page.dart';
+import 'package:flutter_application_1/pages/tickets_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,11 +35,11 @@ class _HomePageState extends State<HomePage> {
           children: [
             // AllTicketsPage(),
             // CountrySetPage(),
-            AirTicketsPage(),
-            AirTicketsPage(),
-            AirTicketsPage(),
-            AirTicketsPage(),
-            AirTicketsPage(),
+            // AirTicketsPage(),
+            // AirTicketsPage(),
+            // AirTicketsPage(),
+            // AirTicketsPage(),
+            // AirTicketsPage(),
           ],
         ),
       ),
