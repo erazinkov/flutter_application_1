@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class SearchModel extends Equatable {
+class SearchModel {
   final String from;
   final String to;
   final String date;
@@ -57,7 +55,4 @@ class SearchModel extends Equatable {
 
   @override
   int get hashCode => from.hashCode ^ to.hashCode ^ date.hashCode;
-
-  @override
-  List<Object?> get props => [from, to, date];
 }

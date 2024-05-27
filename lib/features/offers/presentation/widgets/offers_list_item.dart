@@ -48,7 +48,7 @@ class OffersListItem extends StatelessWidget {
                   const ColorFilter.mode(AppColors.grey, BlendMode.srcIn),
             ),
             Text(
-              'from ${offer.price.value.toString()} rub',
+              'от ${offer.price.value.toString()} ₽',
               style: const TextStyle(
                 color: AppColors.white,
                 fontWeight: FontWeight.w400,

@@ -3,7 +3,7 @@ import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_cubit.dart';
 import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_state.dart';
 import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
-import 'package:flutter_application_1/pages/widgets/search_modal.dart';
+import 'package:flutter_application_1/pages/search_modal_page.dart';
 import 'package:flutter_application_1/features/offers/presentation/offers_list.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -17,6 +17,19 @@ class AirTicketsPage extends StatefulWidget {
 
 class _AirTicketsPageState extends State<AirTicketsPage> {
   Future<void> _showModalBottomSheet(BuildContext context) async {
+    // await showModalBottomSheet(
+    //   backgroundColor: AppColors.searchModalBg,
+    //   showDragHandle: true,
+    //   useSafeArea: true,
+    //   clipBehavior: Clip.hardEdge,
+    //   isScrollControlled: true,
+    //   context: context,
+    //   builder: (_) => SearchModalPage(
+    //     blocContext: context,
+    //   ),
+    // ).whenComplete(
+    //   () => setState(() {}),
+    // );
     await showModalBottomSheet(
       backgroundColor: AppColors.searchModalBg,
       showDragHandle: true,
@@ -24,24 +37,32 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
       clipBehavior: Clip.hardEdge,
       isScrollControlled: true,
       context: context,
-      builder: (_) => SearchModal(
+      builder: (_) => SearchModalPage(
         blocContext: context,
       ),
+    ).whenComplete(
+      () {
+        setState(() {});
+      },
     );
   }
 
   late TextEditingController _fromController;
+  late TextEditingController _toController;
 
   @override
   void initState() {
     _fromController = TextEditingController();
+    _toController = TextEditingController();
     _fromController.addListener(_fromListener);
+    _toController.addListener(_toListener);
     super.initState();
   }
 
   @override
   void dispose() {
     _fromController.dispose();
+    _toController.dispose();
     super.dispose();
   }
 
@@ -51,14 +72,31 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
         .onSearchChange(from: _fromController.value.text);
   }
 
+  void _toListener() {
+    context.read<SearchCubit>().onSearchChange(to: _toController.value.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
-          Text(
-            context.read<SearchCubit>().state.search.from,
+          // BlocBuilder<SearchCubit, SearchState>(
+          //   builder: (context, state) {
+          //     return Text(
+          //       state.search.to,
+          //       textAlign: TextAlign.center,
+          //       style: TextStyle(
+          //         color: AppColors.white,
+          //         fontWeight: FontWeight.w600,
+          //         fontSize: 22,
+          //       ),
+          //     );
+          //   },
+          // ),
+          const Text(
+            'Поиск дешевых \n авиабилетов',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: AppColors.white,
@@ -66,15 +104,6 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
               fontSize: 22,
             ),
           ),
-          // const Text(
-          //   'Looking for chip \n air tickets',
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(
-          //     color: AppColors.white,
-          //     fontWeight: FontWeight.w600,
-          //     fontSize: 22,
-          //   ),
-          // ),
           const SizedBox(
             height: 36,
           ),
@@ -107,32 +136,55 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
                   const SizedBox(
                     width: 8,
                   ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        MyTextField(
-                          labelText:
-                              context.read<SearchCubit>().state.search.from,
-                          onChanged: (value) => {},
-                          controller: _fromController,
+                  BlocBuilder<SearchCubit, SearchState>(
+                    builder: (context, state) {
+                      if (state.search.from.isNotEmpty) {
+                        _fromController.value =
+                            TextEditingValue(text: state.search.from);
+                      } else {
+                        _fromController.clear();
+                      }
+                      if (state.search.to.isNotEmpty) {
+                        _toController.value =
+                            TextEditingValue(text: state.search.to);
+                      } else {
+                        _toController.clear();
+                      }
+
+                      return Flexible(
+                        child: Column(
+                          children: [
+                            MyTextField(
+                              labelText: 'Откуда - Минск',
+                              controller: _fromController,
+                              onClear: () {
+                                context
+                                    .read<SearchCubit>()
+                                    .onSearchChange(from: '');
+                              },
+                            ),
+                            const Divider(
+                              height: 16,
+                              thickness: 1,
+                              color: AppColors.searchDivider,
+                            ),
+                            GestureDetector(
+                              onTap: () => _showModalBottomSheet(context),
+                              child: MyTextField(
+                                labelText: 'Куда - Турция',
+                                enabled: false,
+                                controller: _toController,
+                                onClear: () {
+                                  context
+                                      .read<SearchCubit>()
+                                      .onSearchChange(to: '');
+                                },
+                              ),
+                            ),
+                          ],
                         ),
-                        const Divider(
-                          height: 16,
-                          thickness: 1,
-                          color: AppColors.searchDivider,
-                        ),
-                        GestureDetector(
-                          onTap: () => _showModalBottomSheet(context),
-                          child: MyTextField(
-                            labelText:
-                                context.read<SearchCubit>().state.search.to,
-                            enabled: false,
-                            onChanged: (value) => {},
-                            controller: _fromController,
-                          ),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -144,7 +196,7 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
           const Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Music',
+              'Музыкально отлететь',
               style: TextStyle(
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,

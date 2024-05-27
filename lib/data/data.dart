@@ -3,17 +3,17 @@ import 'package:flutter_application_1/features/recommendations/domain/entities/r
 const List<RecommendationEntity> recommendations = [
   RecommendationEntity(
     assetName: 'assets/images/istambul.jpeg',
-    town: 'Istambul',
-    description: 'Popular direction',
+    town: 'Стамбул',
+    description: 'Популярное направление',
   ),
   RecommendationEntity(
     assetName: 'assets/images/sochi.jpeg',
-    town: 'Sochi',
-    description: 'Popular direction',
+    town: 'Сочи',
+    description: 'Популярное направление',
   ),
   RecommendationEntity(
     assetName: 'assets/images/phuket.jpeg',
-    town: 'Phuket',
-    description: 'Popular direction',
+    town: 'Пхукет',
+    description: 'Популярное направление',
   ),
 ];
