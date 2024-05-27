@@ -64,81 +64,91 @@ class _TicketsPageState extends State<TicketsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            // BlocBuilder<SearchCubit, SearchState>(
-            //   builder: (context, state) {
-            //     return Text(
-            //       state.search.to,
-            //       textAlign: TextAlign.center,
-            //       style: TextStyle(
-            //         color: AppColors.white,
-            //         fontWeight: FontWeight.w600,
-            //         fontSize: 22,
-            //       ),
-            //     );
-            //   },
-            // ),
-            const Text(
-              'Поиск дешевых \n авиабилетов',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppColors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 22,
-              ),
-            ),
-            const SizedBox(
-              height: 36,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: AppColors.searchGreyDark,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              padding: const EdgeInsets.all(16),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: AppColors.searchGrey,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: AppColors.searchShadow,
-                        blurRadius: 4.0,
-                        offset: Offset(0.0, 4.0))
-                  ],
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              // BlocBuilder<SearchCubit, SearchState>(
+              //   builder: (context, state) {
+              //     return Text(
+              //       state.search.to,
+              //       textAlign: TextAlign.center,
+              //       style: TextStyle(
+              //         color: AppColors.white,
+              //         fontWeight: FontWeight.w600,
+              //         fontSize: 22,
+              //       ),
+              //     );
+              //   },
+              // ),
+              const Text(
+                'Поиск дешевых \n авиабилетов',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 22,
                 ),
-                padding: const EdgeInsets.only(
-                    top: 16, right: 16, bottom: 16, left: 8),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/icons/search.svg',
-                      colorFilter: const ColorFilter.mode(
-                          AppColors.black, BlendMode.srcIn),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    BlocBuilder<SearchCubit, SearchState>(
-                      builder: (context, state) {
-                        if (state.search.from.isNotEmpty) {
-                          _fromController.value =
-                              TextEditingValue(text: state.search.from);
-                        } else {
-                          _fromController.clear();
-                        }
-                        if (state.search.to.isNotEmpty) {
-                          _toController.value =
-                              TextEditingValue(text: state.search.to);
-                        } else {
-                          _toController.clear();
-                        }
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.searchGreyDark,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                padding: const EdgeInsets.all(16),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.searchGrey,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: AppColors.searchShadow,
+                          blurRadius: 4.0,
+                          offset: Offset(0.0, 4.0))
+                    ],
+                  ),
+                  padding: const EdgeInsets.only(
+                      top: 16, right: 16, bottom: 16, left: 8),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/search.svg',
+                        colorFilter: const ColorFilter.mode(
+                            AppColors.black, BlendMode.srcIn),
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      BlocListener<SearchCubit, SearchState>(
+                        listener: (context, state) {
+                          if (state.search.from != _fromController.text) {
+                            _fromController.text = state.search.from;
+                          }
+                          if (state.search.to != _toController.text) {
+                            _toController.text = state.search.to;
+                          }
+                        },
+                        // builder: (context, state) {
+                        //   if (state.search.from.isNotEmpty) {
+                        //     _fromController.value =
+                        //         TextEditingValue(text: state.search.from);
+                        //   } else {
+                        //     _fromController.clear();
+                        //   }
+                        //   if (state.search.to.isNotEmpty) {
+                        //     _toController.value =
+                        //         TextEditingValue(text: state.search.to);
+                        //   } else {
+                        //     _toController.clear();
+                        //   }
 
-                        return Flexible(
+                        child: Flexible(
                           child: Column(
                             children: [
                               MyTextField(
@@ -153,48 +163,47 @@ class _TicketsPageState extends State<TicketsScreen> {
                                 color: AppColors.searchDivider,
                               ),
                               GestureDetector(
-                                // onTap: () => _showModalBottomSheet(context),
-                                onTap: () => {
-                                  // context.router.push(SearchRoute());
+                                onTap: () {
+                                  context.router.push(const SearchRoute());
                                 },
                                 child: MyTextField(
+                                  enabled: false,
                                   readOnly: true,
                                   showClear: false,
                                   labelText: 'Куда - Турция',
-                                  enabled: false,
                                   controller: _toController,
                                 ),
                               ),
                             ],
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Музыкально отлететь',
-                style: TextStyle(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
+              const SizedBox(
+                height: 32,
+              ),
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Музыкально отлететь',
+                  style: TextStyle(
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 22,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            const Flexible(
-              child: OffersList(),
-            ),
-          ],
+              const SizedBox(
+                height: 25,
+              ),
+              const Flexible(
+                child: OffersList(),
+              ),
+            ],
+          ),
         ),
       ),
     );

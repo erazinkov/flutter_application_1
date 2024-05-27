@@ -7,6 +7,7 @@ abstract class TicketsRoutes {
     children: [
       AutoRoute(page: TicketsRoute.page, initial: true),
       AutoRoute(page: SearchRoute.page),
+      AutoRoute(page: CountryRoute.page),
     ],
   );
 }

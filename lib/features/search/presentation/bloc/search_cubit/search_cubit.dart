@@ -5,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   SearchCubit()
-      : super(SearchState(SearchModel(
-            from: '', to: '', date: DateTime.now().toIso8601String())));
+      : super(SearchState(
+            search: SearchModel(
+                from: '', to: '', date: DateTime.now().toIso8601String())));
 
   void onSearchChange({
     String? from,
@@ -14,13 +15,13 @@ class SearchCubit extends Cubit<SearchState> {
     String? date,
   }) {
     final newSearch = state.search.copyWith(from: from, to: to, date: date);
-    emit(SearchState(newSearch));
+    emit(SearchState(search: newSearch));
   }
 
   void onSearchSwitch() {
     final currentSearch = state.search;
     final newSearch =
         state.search.copyWith(from: currentSearch.to, to: currentSearch.from);
-    emit(SearchState(newSearch));
+    emit(SearchState(search: newSearch));
   }
 }

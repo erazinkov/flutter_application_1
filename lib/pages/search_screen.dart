@@ -6,6 +6,7 @@ import 'package:flutter_application_1/features/search/presentation/bloc/search_c
 import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
 import 'package:flutter_application_1/pages/widgets/prompt_row.dart';
 import 'package:flutter_application_1/pages/widgets/recommendations_row.dart';
+import 'package:flutter_application_1/routing/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
@@ -51,63 +52,75 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocConsumer<SearchCubit, SearchState>(listener: (context, state) {
-        if (state.search.to.isNotEmpty) {
-          // _showFullScreenDialog(context);
-        }
-      }, builder: (context, state) {
-        if (state.search.from.isNotEmpty) {
-          _fromController.value = TextEditingValue(text: state.search.from);
-        }
-        if (state.search.to.isNotEmpty) {
-          _toController.value = TextEditingValue(text: state.search.to);
-        }
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppColors.searchGreyDark,
-                  borderRadius: BorderRadius.circular(16),
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child:
+            BlocConsumer<SearchCubit, SearchState>(listener: (context, state) {
+          if (state.search.from.isNotEmpty && state.search.to.isNotEmpty) {
+            context.router.push(const CountryRoute());
+          }
+          if (state.search.from.isEmpty) {
+            context.router.maybePop();
+          }
+        }, builder: (context, state) {
+          if (state.search.from.isNotEmpty) {
+            _fromController.value = TextEditingValue(text: state.search.from);
+          } else {
+            _fromController.clear();
+          }
+          if (state.search.to.isNotEmpty) {
+            _toController.value = TextEditingValue(text: state.search.to);
+          } else {
+            _toController.clear();
+          }
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.searchGreyDark,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      MyTextField(
+                        readOnly: false,
+                        controller: _fromController,
+                        labelText: 'Откуда - Минск',
+                        assetName: 'assets/icons/plane_from.svg',
+                        showClear: true,
+                      ),
+                      const Divider(
+                        height: 16,
+                        thickness: 1,
+                        color: AppColors.searchDivider,
+                      ),
+                      MyTextField(
+                        enabled: false,
+                        readOnly: true,
+                        showClear: true,
+                        controller: _toController,
+                        labelText: 'Куда - Турция',
+                        assetName: 'assets/icons/search.svg',
+                      ),
+                    ],
+                  ),
                 ),
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    MyTextField(
-                      readOnly: false,
-                      controller: _fromController,
-                      labelText: 'Откуда - Минск',
-                      assetName: 'assets/icons/plane_from.svg',
-                      showClear: true,
-                    ),
-                    const Divider(
-                      height: 16,
-                      thickness: 1,
-                      color: AppColors.searchDivider,
-                    ),
-                    MyTextField(
-                      readOnly: true,
-                      showClear: true,
-                      controller: _toController,
-                      labelText: 'Куда - Турция',
-                      assetName: 'assets/icons/search.svg',
-                    ),
-                  ],
+                const SizedBox(
+                  height: 24,
                 ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              PromptRow(),
-              const SizedBox(
-                height: 30,
-              ),
-              RecommendationsRow(),
-            ],
-          ),
-        );
-      }),
+                const PromptRow(),
+                const SizedBox(
+                  height: 30,
+                ),
+                const RecommendationsRow(),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

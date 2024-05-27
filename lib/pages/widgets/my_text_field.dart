@@ -68,7 +68,7 @@ class MyTextField extends StatelessWidget {
                 child: Icon(Icons.tune),
               ),
             )
-          : controller.value.text.isNotEmpty && showClear
+          : controller.text.isNotEmpty && showClear
               ? GestureDetector(
                   onTap: () {
                     controller.clear();

@@ -5,15 +5,15 @@ import 'package:flutter_application_1/features/search/data/models/search_model.d
 
 class SearchState {
   final SearchModel search;
-  const SearchState(
-    this.search,
-  );
+  SearchState({
+    required this.search,
+  });
 
   SearchState copyWith({
     SearchModel? search,
   }) {
     return SearchState(
-      search ?? this.search,
+      search: search ?? this.search,
     );
   }
 
@@ -25,7 +25,7 @@ class SearchState {
 
   factory SearchState.fromMap(Map<String, dynamic> map) {
     return SearchState(
-      SearchModel.fromMap(map['search'] as Map<String, dynamic>),
+      search: SearchModel.fromMap(map['search'] as Map<String, dynamic>),
     );
   }
 
