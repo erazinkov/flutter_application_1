@@ -93,7 +93,10 @@ class _CountrySetPageState extends State<_CountrySetPage> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.of(context).pop,
+                        onTap: () {
+                          print('123');
+                          Navigator.of(context, rootNavigator: true).pop;
+                        },
                         child: Icon(
                           Icons.arrow_back,
                         ),
@@ -107,9 +110,10 @@ class _CountrySetPageState extends State<_CountrySetPage> {
                             MyTextField(
                               controller: _fromController,
                               labelText: 'Откуда - Минск',
-                              onClear: () {},
+                              readOnly: true,
+                              showClear: false,
                               onSwitch: () {
-                                context.read<SearchCubit>().onSearchSwitch();
+                                // context.read<SearchCubit>().onSearchSwitch();
                               },
                             ),
                             const Divider(
@@ -118,13 +122,10 @@ class _CountrySetPageState extends State<_CountrySetPage> {
                               color: AppColors.searchDivider,
                             ),
                             MyTextField(
+                              readOnly: true,
+                              showClear: true,
                               controller: _toController,
                               labelText: 'Куда - Турция',
-                              onClear: () {
-                                context
-                                    .read<SearchCubit>()
-                                    .onSearchChange(to: '');
-                              },
                             ),
                           ],
                         ),

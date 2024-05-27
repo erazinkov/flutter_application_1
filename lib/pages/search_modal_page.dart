@@ -39,7 +39,7 @@ class _SearchModalPage extends StatefulWidget {
 
 class _SearchModalPageState extends State<_SearchModalPage> {
   void _showFullScreenDialog(BuildContext context) {
-    Navigator.of(context).push(
+    Navigator.of(context, rootNavigator: true).push(
       CountrySetPage.route(
         context: context,
         // onClose: () {
@@ -83,7 +83,7 @@ class _SearchModalPageState extends State<_SearchModalPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(listener: (context, state) {
-      if (state.search.from.isNotEmpty && state.search.to.isNotEmpty) {
+      if (state.search.to.isNotEmpty) {
         _showFullScreenDialog(context);
       }
     }, builder: (context, state) {
@@ -106,12 +106,11 @@ class _SearchModalPageState extends State<_SearchModalPage> {
               child: Column(
                 children: [
                   MyTextField(
+                    readOnly: false,
                     controller: _fromController,
                     labelText: 'Откуда - Минск',
                     assetName: 'assets/icons/plane_from.svg',
-                    onClear: () {
-                      context.read<SearchCubit>().onSearchChange(from: '');
-                    },
+                    showClear: true,
                   ),
                   const Divider(
                     height: 16,
@@ -119,12 +118,11 @@ class _SearchModalPageState extends State<_SearchModalPage> {
                     color: AppColors.searchDivider,
                   ),
                   MyTextField(
+                    readOnly: true,
+                    showClear: true,
                     controller: _toController,
                     labelText: 'Куда - Турция',
                     assetName: 'assets/icons/search.svg',
-                    onClear: () {
-                      context.read<SearchCubit>().onSearchChange(to: '');
-                    },
                   ),
                 ],
               ),

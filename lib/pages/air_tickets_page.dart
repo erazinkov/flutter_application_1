@@ -155,13 +155,10 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
                         child: Column(
                           children: [
                             MyTextField(
+                              readOnly: false,
+                              showClear: true,
                               labelText: 'Откуда - Минск',
                               controller: _fromController,
-                              onClear: () {
-                                context
-                                    .read<SearchCubit>()
-                                    .onSearchChange(from: '');
-                              },
                             ),
                             const Divider(
                               height: 16,
@@ -171,14 +168,11 @@ class _AirTicketsPageState extends State<AirTicketsPage> {
                             GestureDetector(
                               onTap: () => _showModalBottomSheet(context),
                               child: MyTextField(
+                                readOnly: true,
+                                showClear: false,
                                 labelText: 'Куда - Турция',
                                 enabled: false,
                                 controller: _toController,
-                                onClear: () {
-                                  context
-                                      .read<SearchCubit>()
-                                      .onSearchChange(to: '');
-                                },
                               ),
                             ),
                           ],

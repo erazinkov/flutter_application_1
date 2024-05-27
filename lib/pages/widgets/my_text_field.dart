@@ -9,21 +9,25 @@ class MyTextField extends StatelessWidget {
     this.assetName,
     required this.labelText,
     required this.controller,
-    required this.onClear,
+    required this.readOnly,
+    required this.showClear,
     this.onSwitch,
   });
 
+  final bool readOnly;
+  final bool showClear;
   final bool? enabled;
   final String? assetName;
   final String labelText;
   final TextEditingController controller;
-  final void Function() onClear;
+
   final void Function()? onSwitch;
 
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       TextField(
+        readOnly: readOnly,
         controller: controller,
         enabled: enabled,
         cursorColor: AppColors.searchCursor,
@@ -64,7 +68,7 @@ class MyTextField extends StatelessWidget {
                 child: Icon(Icons.tune),
               ),
             )
-          : controller.value.text.isNotEmpty
+          : controller.value.text.isNotEmpty && showClear
               ? GestureDetector(
                   onTap: () {
                     controller.clear();
