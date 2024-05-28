@@ -5,6 +5,11 @@ import 'package:flutter_application_1/features/offers/data/repositories/offer_re
 import 'package:flutter_application_1/features/offers/domain/repositories/offer_repository.dart';
 import 'package:flutter_application_1/features/offers/domain/usecases/get_all_offers.dart';
 import 'package:flutter_application_1/features/offers/presentation/bloc/offer_list_cubit/offer_list_cubit.dart';
+import 'package:flutter_application_1/features/search/data/datasources/search_local_data_source.dart';
+import 'package:flutter_application_1/features/search/data/repositories/search_repository_impl.dart';
+import 'package:flutter_application_1/features/search/domain/repositories/search_repository.dart';
+import 'package:flutter_application_1/features/search/domain/usecases/get_search.dart';
+import 'package:flutter_application_1/features/search/domain/usecases/set_search.dart';
 import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_cubit.dart';
 import 'package:flutter_application_1/features/tickets/data/datasources/tickets_local_data_source.dart';
 import 'package:flutter_application_1/features/tickets/data/datasources/tickets_remote_data_source.dart';
@@ -22,7 +27,6 @@ import 'package:get_it/get_it.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
@@ -31,7 +35,7 @@ Future<void> init() async {
   sl.registerFactory(() => OfferListCubit(getAllOffers: sl()));
   sl.registerFactory(() => TicketsOfferListCubit(getAllTicketsOffers: sl()));
   sl.registerFactory(() => TicketsListCubit(getAllTickets: sl()));
-  sl.registerFactory(() => SearchCubit());
+  sl.registerFactory(() => SearchCubit(getSearch: sl(), setSearch: sl()));
 
   sl.registerLazySingleton(
     () => GetAllOffers(sl()),
@@ -41,6 +45,12 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(
     () => GetAllTickets(sl()),
+  );
+  sl.registerLazySingleton(
+    () => GetSearch(sl()),
+  );
+  sl.registerLazySingleton(
+    () => SetSearch(sl()),
   );
 
   sl.registerLazySingleton<OfferRepository>(
@@ -62,6 +72,11 @@ Future<void> init() async {
       localDataSource: sl(),
       remoteDataSource: sl(),
       networkInfo: sl(),
+    ),
+  );
+  sl.registerLazySingleton<SearchRepository>(
+    () => SearchRepositoryImpl(
+      localDataSource: sl(),
     ),
   );
 
@@ -93,6 +108,11 @@ Future<void> init() async {
   );
   sl.registerLazySingleton<TicketsLocalDataSource>(
     () => TicketsLocalDataSourceImpl(
+      sharedPreferences: sl(),
+    ),
+  );
+  sl.registerLazySingleton<SearchLocalDataSource>(
+    () => SearchLocalDataSourceImpl(
       sharedPreferences: sl(),
     ),
   );
