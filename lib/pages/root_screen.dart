@@ -14,23 +14,23 @@ class RootScreen extends StatelessWidget {
     final botNavBarItemInfoList = [
       BotNavBarItemInfo(
         assetName: 'assets/icons/air_tickets.svg',
-        label: 'Air Tickets',
+        label: 'Авиабилеты',
       ),
       BotNavBarItemInfo(
         assetName: 'assets/icons/hotels.svg',
-        label: 'Hotels',
+        label: 'Отели',
       ),
       BotNavBarItemInfo(
         assetName: 'assets/icons/brief.svg',
-        label: 'Brief',
+        label: 'Короче',
       ),
       BotNavBarItemInfo(
         assetName: 'assets/icons/subscriptions.svg',
-        label: 'Subs',
+        label: 'Подписки',
       ),
       BotNavBarItemInfo(
         assetName: 'assets/icons/profile.svg',
-        label: 'Profile',
+        label: 'Профиль',
       ),
     ];
     return AutoTabsScaffold(

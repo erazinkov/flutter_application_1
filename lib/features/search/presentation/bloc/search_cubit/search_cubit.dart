@@ -11,7 +11,6 @@ class SearchCubit extends Cubit<SearchState> {
             search: SearchModel(
                 from: '',
                 to: '',
-                // date: DateTime.now().toIso8601String(),
                 date: DateFormat('dd MMMM, E', 'ru')
                     .format(DateTime.now())
                     .toLowerCase()),
