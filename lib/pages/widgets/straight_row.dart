@@ -18,6 +18,7 @@ class StraightRow extends StatelessWidget {
         children: [
           ...recommendations.map(
             (e) => RecommendationsRowItem(
+              onTap: () {},
               assetName: e.assetName,
               town: e.town,
               description: e.description,

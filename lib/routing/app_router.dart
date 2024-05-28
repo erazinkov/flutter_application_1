@@ -6,6 +6,7 @@ import 'package:flutter_application_1/pages/tickets_wrapper_screen.dart';
 import 'package:flutter_application_1/pages/tickets_routes.dart';
 import 'package:flutter_application_1/pages/search_screen.dart';
 import 'package:flutter_application_1/pages/country_screen.dart';
+import 'package:flutter_application_1/pages/all_tickets_screen.dart';
 
 part 'app_router.gr.dart';
 

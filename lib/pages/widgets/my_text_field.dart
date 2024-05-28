@@ -65,7 +65,7 @@ class MyTextField extends StatelessWidget {
               onTap: onSwitch,
               child: const Align(
                 alignment: Alignment.centerRight,
-                child: Icon(Icons.tune),
+                child: Icon(Icons.swap_vert),
               ),
             )
           : controller.text.isNotEmpty && showClear

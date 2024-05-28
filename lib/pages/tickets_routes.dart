@@ -8,6 +8,7 @@ abstract class TicketsRoutes {
       AutoRoute(page: TicketsRoute.page, initial: true),
       AutoRoute(page: SearchRoute.page),
       AutoRoute(page: CountryRoute.page),
+      AutoRoute(page: AllTicketsRoute.page),
     ],
   );
 }

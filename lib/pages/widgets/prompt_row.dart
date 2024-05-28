@@ -20,7 +20,6 @@ class PromptRow extends StatelessWidget {
         ),
         PromptRowItem(
           onTap: () {
-            print('Click');
             context.read<SearchCubit>().onSearchChange(to: 'Куда угодно');
           },
           text: 'Куда угодно',

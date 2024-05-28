@@ -56,7 +56,10 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SafeArea(
         child:
             BlocConsumer<SearchCubit, SearchState>(listener: (context, state) {
-          if (state.search.from.isNotEmpty && state.search.to.isNotEmpty) {
+          final currentPath = context.router.currentPath;
+          if (state.search.from.isNotEmpty &&
+              state.search.to.isNotEmpty &&
+              currentPath != '/tickets-wrapper-route/country-route') {
             context.router.push(const CountryRoute());
           }
           if (state.search.from.isEmpty) {

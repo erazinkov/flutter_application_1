@@ -6,6 +6,7 @@ import 'package:flutter_application_1/features/search/presentation/bloc/search_c
 import 'package:flutter_application_1/features/tickets_offers/presentation/tickets_offers_list.dart';
 import 'package:flutter_application_1/pages/widgets/info_row.dart';
 import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
+import 'package:flutter_application_1/routing/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
@@ -25,8 +26,8 @@ class _CountryScreenState extends State<CountryScreen> {
   void initState() {
     _fromController = TextEditingController();
     _toController = TextEditingController();
-    // _fromController.addListener(_fromListener);
-    // _toController.addListener(_toListener);
+    _fromController.addListener(_fromListener);
+    _toController.addListener(_toListener);
 
     super.initState();
   }
@@ -55,8 +56,11 @@ class _CountryScreenState extends State<CountryScreen> {
       body: SafeArea(
         child: BlocBuilder<SearchCubit, SearchState>(
           builder: (context, state) {
+            bool showSwitch =
+                state.search.from.isNotEmpty && state.search.to.isNotEmpty;
             _fromController.value = TextEditingValue(text: state.search.from);
             _toController.value = TextEditingValue(text: state.search.to);
+
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -89,12 +93,11 @@ class _CountryScreenState extends State<CountryScreen> {
                                 labelText: 'Откуда - Минск',
                                 readOnly: true,
                                 showClear: false,
-                                onSwitch: () {
-                                  _fromController.value =
-                                      TextEditingValue(text: state.search.to);
-                                  _toController.value =
-                                      TextEditingValue(text: state.search.from);
-                                },
+                                onSwitch: showSwitch
+                                    ? () => context
+                                        .read<SearchCubit>()
+                                        .onSearchSwitch()
+                                    : null,
                               ),
                               const Divider(
                                 height: 16,
@@ -154,7 +157,7 @@ class _CountryScreenState extends State<CountryScreen> {
                           height: 8,
                         ),
                         GestureDetector(
-                          onTap: () => {},
+                          onTap: () {},
                           child: Container(
                             padding: const EdgeInsets.symmetric(
                               vertical: 10,
@@ -178,7 +181,7 @@ class _CountryScreenState extends State<CountryScreen> {
                     height: 20,
                   ),
                   GestureDetector(
-                    onTap: () => {},
+                    onTap: () => context.router.push(const AllTicketsRoute()),
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,

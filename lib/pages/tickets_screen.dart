@@ -4,11 +4,11 @@ import 'package:flutter_application_1/common/app_colors.dart';
 import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_cubit.dart';
 import 'package:flutter_application_1/features/search/presentation/bloc/search_cubit/search_state.dart';
 import 'package:flutter_application_1/pages/widgets/my_text_field.dart';
-import 'package:flutter_application_1/pages/search_modal_page.dart';
 import 'package:flutter_application_1/features/offers/presentation/offers_list.dart';
 import 'package:flutter_application_1/routing/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 @RoutePage()
 class TicketsScreen extends StatefulWidget {
@@ -19,25 +19,12 @@ class TicketsScreen extends StatefulWidget {
 }
 
 class _TicketsPageState extends State<TicketsScreen> {
-  // Future<void> _showModalBottomSheet(BuildContext context) async {
-  //   await showModalBottomSheet(
-  //     backgroundColor: AppColors.searchModalBg,
-  //     showDragHandle: true,
-  //     useSafeArea: true,
-  //     clipBehavior: Clip.hardEdge,
-  //     isScrollControlled: true,
-  //     context: context,
-  //     builder: (_) => SearchModalPage(
-  //       blocContext: context,
-  //     ),
-  //   );
-  // }
-
   late TextEditingController _fromController;
   late TextEditingController _toController;
 
   @override
   void initState() {
+    initializeDateFormatting('ru', null);
     _fromController = TextEditingController();
     _toController = TextEditingController();
     _fromController.addListener(_fromListener);
@@ -71,19 +58,6 @@ class _TicketsPageState extends State<TicketsScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
-              // BlocBuilder<SearchCubit, SearchState>(
-              //   builder: (context, state) {
-              //     return Text(
-              //       state.search.to,
-              //       textAlign: TextAlign.center,
-              //       style: TextStyle(
-              //         color: AppColors.white,
-              //         fontWeight: FontWeight.w600,
-              //         fontSize: 22,
-              //       ),
-              //     );
-              //   },
-              // ),
               const Text(
                 'Поиск дешевых \n авиабилетов',
                 textAlign: TextAlign.center,
@@ -125,58 +99,51 @@ class _TicketsPageState extends State<TicketsScreen> {
                       const SizedBox(
                         width: 8,
                       ),
-                      BlocListener<SearchCubit, SearchState>(
-                        listener: (context, state) {
-                          if (state.search.from != _fromController.text) {
-                            _fromController.text = state.search.from;
+                      BlocBuilder<SearchCubit, SearchState>(
+                        builder: (context, state) {
+                          if (state.search.from.isNotEmpty) {
+                            _fromController.value =
+                                TextEditingValue(text: state.search.from);
+                          } else {
+                            _fromController.clear();
                           }
-                          if (state.search.to != _toController.text) {
-                            _toController.text = state.search.to;
+                          if (state.search.to.isNotEmpty) {
+                            _toController.value =
+                                TextEditingValue(text: state.search.to);
+                          } else {
+                            _toController.clear();
                           }
-                        },
-                        // builder: (context, state) {
-                        //   if (state.search.from.isNotEmpty) {
-                        //     _fromController.value =
-                        //         TextEditingValue(text: state.search.from);
-                        //   } else {
-                        //     _fromController.clear();
-                        //   }
-                        //   if (state.search.to.isNotEmpty) {
-                        //     _toController.value =
-                        //         TextEditingValue(text: state.search.to);
-                        //   } else {
-                        //     _toController.clear();
-                        //   }
 
-                        child: Flexible(
-                          child: Column(
-                            children: [
-                              MyTextField(
-                                readOnly: false,
-                                showClear: true,
-                                labelText: 'Откуда - Минск',
-                                controller: _fromController,
-                              ),
-                              const Divider(
-                                height: 16,
-                                thickness: 1,
-                                color: AppColors.searchDivider,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  context.router.push(const SearchRoute());
-                                },
-                                child: MyTextField(
-                                  enabled: false,
-                                  readOnly: true,
-                                  showClear: false,
-                                  labelText: 'Куда - Турция',
-                                  controller: _toController,
+                          return Flexible(
+                            child: Column(
+                              children: [
+                                MyTextField(
+                                  readOnly: false,
+                                  showClear: true,
+                                  labelText: 'Откуда - Минск',
+                                  controller: _fromController,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
+                                const Divider(
+                                  height: 16,
+                                  thickness: 1,
+                                  color: AppColors.searchDivider,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    context.router.push(const SearchRoute());
+                                  },
+                                  child: MyTextField(
+                                    enabled: false,
+                                    readOnly: true,
+                                    showClear: false,
+                                    labelText: 'Куда - Турция',
+                                    controller: _toController,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
