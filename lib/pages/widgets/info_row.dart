@@ -5,7 +5,6 @@ import 'package:flutter_application_1/features/search/presentation/bloc/search_c
 import 'package:flutter_application_1/pages/widgets/info_row_item.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class InfoRow extends StatelessWidget {
   const InfoRow({super.key});

@@ -37,10 +37,10 @@ class RootScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       routes: const [
         TicketsWrapperRoute(),
-        SecondRoute(),
-        SecondRoute(),
-        SecondRoute(),
-        SecondRoute(),
+        HotelsRoute(),
+        BriefRoute(),
+        SubsRoute(),
+        ProfileRoute(),
       ],
       bottomNavigationBuilder: (_, tabsRouter) {
         return BottomNavigationBar(

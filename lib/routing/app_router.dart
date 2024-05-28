@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_application_1/pages/second_screen.dart';
+import 'package:flutter_application_1/pages/hotels_screen.dart';
+import 'package:flutter_application_1/pages/brief_screen.dart';
+import 'package:flutter_application_1/pages/subs_screen.dart';
+import 'package:flutter_application_1/pages/profile_screen.dart';
 import 'package:flutter_application_1/pages/root_screen.dart';
 import 'package:flutter_application_1/pages/tickets_screen.dart';
 import 'package:flutter_application_1/pages/tickets_wrapper_screen.dart';
@@ -18,11 +21,11 @@ class AppRouter extends _$AppRouter {
           page: RootRoute.page,
           initial: true,
           children: [
-            /// Вложенные маршруты
             TicketsRoutes.routes,
-            AutoRoute(
-              page: SecondRoute.page,
-            ),
+            AutoRoute(page: HotelsRoute.page),
+            AutoRoute(page: BriefRoute.page),
+            AutoRoute(page: SubsRoute.page),
+            AutoRoute(page: ProfileRoute.page),
           ],
         ),
       ];

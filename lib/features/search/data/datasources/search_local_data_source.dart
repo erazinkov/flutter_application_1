@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter_application_1/core/error/exception.dart';
 import 'package:flutter_application_1/features/search/data/models/search_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
